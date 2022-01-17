@@ -127,10 +127,29 @@ NeueFahrt As screen:
                 Format: =TextFormat.Number
                 Height: =70
                 OnChange: |-
-                    =If( Value(StartInput.Text ) < Session.LastKM, Reset(StartInput));
-                    If( Value(StartInput.Text) > Session.LastKM, 
+                    =// Ein Setzen des Anfangskilometerstandes VOR den letzten Endkilometerstand
+                    // ist nicht möglich
+                    If( 
+                        Value(
+                            StartInput.Text 
+                        ) < Session.LastKM, 
+                        Reset(StartInput)
+                    );
+                    
+                    // Wird der Start-Kilometerstand verändert, 
+                    // wird varDiff auf true gesetzt, was beim Speichern
+                    // einen Differenzdatensatz erzeugt
+                    If( 
+                        Value(
+                            StartInput.Text
+                        ) > Session.LastKM, 
+                        //then
                         UpdateContext({varDiff: true}), 
-                        UpdateContext({varDiff: false}); Reset(labKosten); Reset(labStrecke))
+                        //else
+                        UpdateContext({varDiff: false}); 
+                        Reset(labKosten); 
+                        Reset(labStrecke)
+                    )
                 PaddingLeft: =5
                 RadiusBottomLeft: =0
                 RadiusBottomRight: =0
