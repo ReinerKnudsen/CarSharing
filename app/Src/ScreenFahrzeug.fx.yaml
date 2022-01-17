@@ -1,0 +1,117 @@
+ScreenFahrzeug As screen:
+
+    Label11 As label:
+        Height: =70
+        Size: =21
+        Text: |-
+            ="Typ: Skoda Fabia II Combi"
+        Width: =560
+        X: =40
+        Y: =141
+        ZIndex: =5
+
+    Button10 As button:
+        Height: =70
+        Size: =20
+        Text: ="KFZ-Schein"
+        Width: =280
+        X: =40
+        Y: =701
+        ZIndex: =6
+
+    GroupHeader_10 As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =6
+
+        RectQuickActionBar2_5 As rectangle:
+            Width: =Parent.Width
+            ZIndex: =1
+
+        LblAppName2_6 As label:
+            Align: =Align.Center
+            FontWeight: =FontWeight.Bold
+            Height: =66
+            Size: =27
+            Text: ="Fahrzeug"
+            Width: =640
+            Wrap: =false
+            ZIndex: =2
+
+        Label15_2 As label:
+            Align: =Align.Center
+            Color: =RGBA(255, 255, 255, 1)
+            Height: =58
+            Size: =21
+            Text: ="Informationen"
+            Width: =348
+            X: =146
+            Y: =42
+            ZIndex: =3
+
+        ButtonBack_5 As button:
+            Align: =Align.Left
+            BorderColor: =Transparent
+            BorderThickness: =0
+            Fill: =Transparent
+            Height: =80
+            HoverBorderColor: =Self.BorderColor
+            OnSelect: =Navigate(Start, ScreenTransition.None)
+            PaddingLeft: =10
+            PressedBorderColor: =Self.BorderColor
+            PressedFill: =Self.HoverFill
+            Size: =24
+            Text: ="Zurück"
+            X: =6
+            Y: =10
+            ZIndex: =4
+
+    Button10_1 As button:
+        Height: =70
+        Size: =20
+        Text: ="Versicherungskarte"
+        Width: =280
+        X: =40
+        Y: =813
+        ZIndex: =7
+
+    Label34 As label:
+        Height: =70
+        Size: =21
+        Text: |-
+            =Value(
+                Substitute(
+                    TextInput2.Text,
+                    ",",
+                    "."
+                )
+            )
+        Width: =560
+        X: =40
+        Y: =248
+        ZIndex: =8
+
+    TextInput2 As text:
+        Align: =Align.Right
+        Default: ="Text input"
+        Height: =70
+        Size: =21
+        Width: =560
+        X: =40
+        Y: =318
+        ZIndex: =9
+
+    labVersion_14 As label:
+        Align: =Align.Center
+        Color: =RGBA(0, 13, 75, 1)
+        Fill: =RGBA(230, 230, 230, 0.53)
+        Height: =45
+        OnSelect: =Navigate(ScreenVersionen, ScreenTransition.None)
+        Size: =16
+        Text: ="Version " & LookUp( myVersionen, creb3_index = Max( myVersionen, creb3_index)).version
+        Width: =640
+        Y: =1091
+        ZIndex: =10
+

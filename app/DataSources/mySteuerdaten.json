@@ -1,0 +1,9 @@
+[
+  {
+    "IsComponentScoped": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "Name": "mySteuerdaten",
+    "Type": "CollectionDataSourceInfo"
+  }
+]

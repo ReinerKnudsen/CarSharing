@@ -1,0 +1,344 @@
+ScreenBuchungAendern As screen:
+    Height: =Max(App.Height, App.DesignHeight)
+    OnVisible: |
+        =UpdateContext({ myBuchung: CalendarEventsGallery1.Selected});
+        UpdateContext({ 
+            varStartTime: Text(Hour(myBuchung.Start), "[$-en-GB]00") & ":" & Text(Minute(myBuchung.Start), "[$-en-GB]00"),
+            varStartDatum: myBuchung.Start,
+            varEndeDatum: myBuchung.End,
+            varEndeTime: Text(Hour(myBuchung.End), "[$-en-GB]00") & ":" & Text(Minute(myBuchung.End), "[$-en-GB]00")
+        });
+        UpdateContext({ 
+            varStartZeit: LookUp(HoursList, Name = varStartTime).Minutes,
+            varEndeZeit: LookUp(HoursList, Name = varEndeTime). Minutes
+        });
+        UpdateContext({    
+            varBody: Mid(myBuchung.Body, Find("Erzeugt", myBuchung.Body), Find("</body>", myBuchung.Body)-Find("Erzeugt", myBuchung.Body))
+        });
+        UpdateContext({varLoeschen: false})
+    Width: =Max(App.Width, App.DesignWidth)
+
+    labGruppe_1 As label:
+        DisplayMode: =DisplayMode.View
+        Height: =62
+        Size: =21
+        Text: ="Gruppe"
+        Width: =274
+        X: =34
+        Y: =140
+        ZIndex: =5
+
+    GroupHeader_8 As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =20
+        ZIndex: =5
+
+        RectQuickActionBar2_10 As rectangle:
+            Width: =Parent.Width
+            ZIndex: =1
+
+        LblAppName2_11 As label:
+            Align: =Align.Center
+            FontWeight: =FontWeight.Bold
+            Height: =66
+            Size: =27
+            Text: ="Buchung ändern"
+            Width: =317
+            Wrap: =false
+            X: =146
+            Y: =17
+            ZIndex: =2
+
+        ButtonSave_2 As button:
+            Align: =Align.Right
+            BorderColor: =Transparent
+            BorderThickness: =0
+            DisabledFill: =Session.bgColor
+            DisplayMode: =
+            Fill: =Transparent
+            Height: =80
+            HoverBorderColor: =Self.BorderColor
+            OnSelect: |-
+                =If( !IsError( Office365Outlook.V2CalendarPatchItem(
+                    myCalendar.id, 
+                    myBuchung.Id,
+                    Session.Group,
+                    DateTimeValue( Text( _startTimeUTC, DateTimeFormat.UTC)),
+                    DateTimeValue( Text( _endTimeUTC, DateTimeFormat.UTC)),
+                    {Body: varBody & " // Geändert von " & User().FullName & " am " & Today()
+                    }
+                    );
+                ), Notify("Den Termin habe ich mir notiert", NotificationType.Success, 2000),
+                   Notify("Mist! Das hat nicht funktioniert.", NotificationType.Error, 2000));
+                Navigate(ScreenKalender, ScreenTransition.None)
+            PaddingRight: =10
+            PressedBorderColor: =Self.BorderColor
+            PressedFill: =Self.HoverFill
+            Size: =24
+            Text: ="Speichern"
+            Visible: =!labError.Visible
+            Width: =170
+            X: =464
+            Y: =10
+            ZIndex: =3
+
+        ButtonBackNF_2 As button:
+            Align: =Align.Left
+            BorderColor: =Transparent
+            BorderThickness: =0
+            Fill: =Transparent
+            Height: =80
+            HoverBorderColor: =Self.BorderColor
+            OnSelect: =Navigate(ScreenKalender, ScreenTransition.None)
+            PaddingLeft: =10
+            PressedBorderColor: =Self.BorderColor
+            PressedFill: =Self.HoverFill
+            Size: =24
+            Text: ="Zurück"
+            X: =6
+            Y: =10
+            ZIndex: =4
+
+    labBuchungGruppe_1 As label:
+        Align: =Align.Right
+        DisplayMode: =DisplayMode.View
+        Height: =62
+        Size: =21
+        Text: =Session.Group
+        Width: =384
+        X: =210
+        Y: =140
+        ZIndex: =6
+
+    StartDatePicker_1 As datepicker:
+        DefaultDate: =varStartDatum
+        Height: =70
+        InputTextPlaceholder: =
+        OnChange: |-
+            =/* In case the selected start date ist later that the currently selected end date */
+            If(
+                Self.SelectedDate > EndDatePicker_1.SelectedDate, 
+                UpdateContext({ 
+                    varEndeDatum: Self.SelectedDate}));
+            UpdateContext({ 
+                    varStartDatum: Self.SelectedDate});
+            UpdateContext({ 
+                    _startTimeUTC: DateAdd( varStartDatum, varStartZeit, Minutes)})
+        Size: =21
+        Width: =280
+        X: =34
+        Y: =296
+        ZIndex: =7
+
+    labStart_1 As label:
+        Height: =70
+        Size: =21
+        Text: ="Start"
+        Width: =560
+        X: =34
+        Y: =226
+        ZIndex: =8
+
+    EndDatePicker_1 As datepicker:
+        DefaultDate: =varEndeDatum
+        Height: =70
+        OnChange: |-
+            =/* Ist das Enddatum kleiner als das Startdatum, wird das Startdatum auf das Enddatum gesetzt */
+            If( 
+                Self.SelectedDate < StartDatePicker_1.SelectedDate,
+                UpdateContext( { varStartDatum: Self.SelectedDate})
+                );
+            UpdateContext({
+                varEndeDatum: Self.SelectedDate});
+            UpdateContext({
+                _endTimeUTC: DateAdd(varEndeDatum, varEndeZeit, Minutes)})
+        OnSelect: =
+        Size: =21
+        Width: =274
+        X: =40
+        Y: =458
+        ZIndex: =9
+
+    labEnde_1 As label:
+        Height: =70
+        Size: =21
+        Text: ="Ende"
+        Width: =560
+        X: =40
+        Y: =388
+        ZIndex: =10
+
+    StartTimePicker_1 As dropdown:
+        Default: =varStartTime
+        Height: =70
+        Items: =HoursList
+        OnChange: |-
+            =UpdateContext({
+                varStartZeit: Self.Selected.Minutes});
+            UpdateContext({
+                _startTimeUTC: DateAdd( varStartDatum, varStartZeit, Minutes)})
+                
+                
+        Size: =21
+        Width: =235
+        X: =365
+        Y: =296
+        ZIndex: =11
+
+    EndTimePicker_1 As dropdown:
+        Default: =varEndeTime
+        Height: =70
+        Items: =HoursList
+        OnChange: |-
+            =UpdateContext({ 
+                varEndeZeit: Self.Selected.Minutes}); 
+            UpdateContext({ 
+                _endTimeUTC: DateAdd(varEndeDatum, varEndeZeit, Minutes)})
+        Size: =21
+        Width: =235
+        X: =365
+        Y: =455
+        ZIndex: =12
+
+    grpFehler_1 As group:
+        Height: =5
+        Width: =5
+        X: =60
+        Y: =60
+        ZIndex: =15
+
+        labError As label:
+            Color: =RGBA(184, 0, 0, 1)
+            Height: =50
+            Size: =12
+            Text: ="Die Ende-Zeit muss größer sein, als die Start-Zeit"
+            Visible: =If(And(varStartDatum = varEndeDatum, EndTimePicker_1.Selected.Minutes < varStartZeit), true, false)
+            Width: =235
+            X: =401
+            Y: =541
+            ZIndex: =13
+
+        icoError As icon.Warning:
+            Color: =RGBA(184, 0, 0, 1)
+            Height: =50
+            Icon: =Icon.Warning
+            Visible: =If(And(varStartDatum = varEndeDatum, EndTimePicker_1.Selected.Minutes < varStartZeit), true, false)
+            Width: =36
+            X: =365
+            Y: =541
+            ZIndex: =14
+
+    Label38 As label:
+        Height: =70
+        Size: =14
+        Text: =Mid(myBuchung.Body, Find("Erzeugt", myBuchung.Body), Find("</body>", myBuchung.Body)-Find("Erzeugt", myBuchung.Body))
+        Width: =560
+        X: =40
+        Y: =591
+        ZIndex: =20
+
+    Button7 As button:
+        Fill: =RGBA(168, 0, 0, 1)
+        Height: =70
+        OnSelect: |-
+            =UpdateContext({varLoeschen: true})
+        Size: =24
+        Text: ="Löschen"
+        Width: =280
+        X: =320
+        Y: =708
+        ZIndex: =21
+
+    labVersion_5 As label:
+        Align: =Align.Center
+        Color: =RGBA(0, 13, 75, 1)
+        Fill: =RGBA(230, 230, 230, 0.53)
+        Height: =45
+        OnSelect: =Navigate(ScreenVersionen, ScreenTransition.None)
+        Size: =16
+        Text: ="Version " & LookUp( myVersionen, creb3_index = Max( myVersionen, creb3_index)).version
+        Width: =640
+        Y: =1091
+        ZIndex: =28
+
+    grpWarnungLoeschen As group:
+        Height: =5
+        Width: =5
+        X: =60
+        Y: =60
+        ZIndex: =28
+
+        Rectangle5 As rectangle:
+            Fill: =RGBA(255, 191, 0, 1)
+            Height: =389
+            Visible: =varLoeschen
+            Width: =640
+            Y: =272
+            ZIndex: =22
+
+        Label12 As label:
+            Align: =Align.Center
+            FontWeight: =FontWeight.Bold
+            Height: =70
+            Size: =21
+            Text: |-
+                ="Echt jetzt?
+                "
+            Visible: =varLoeschen
+            Width: =321
+            X: =153
+            Y: =293
+            ZIndex: =23
+
+        Label12_1 As label:
+            Align: =Align.Center
+            Height: =92
+            Size: =21
+            Text: |-
+                ="Diesen Termin wirklich löschen? So richtig?
+                "
+            Visible: =varLoeschen
+            Width: =321
+            X: =153
+            Y: =366
+            ZIndex: =24
+
+        Label16 As label:
+            Align: =Align.Center
+            Height: =70
+            Size: =21
+            Text: ="Dann isser aber weg!"
+            Visible: =varLoeschen
+            Width: =331
+            X: =148
+            Y: =464
+            ZIndex: =25
+
+        Button8 As button:
+            Height: =70
+            OnSelect: |-
+                =UpdateContext({varLoeschen: false})
+            Size: =20
+            Text: ="Lieber nicht"
+            Visible: =varLoeschen
+            Width: =199
+            X: =51
+            Y: =548
+            ZIndex: =26
+
+        Button8_1 As button:
+            Height: =70
+            OnSelect: |-
+                =Office365Outlook.CalendarDeleteItemV2(myCalendar.id, myBuchung.Id);
+                UpdateContext({varLoeschen: false});
+                Navigate(ScreenKalender, ScreenTransition.None)
+            Size: =20
+            Text: ="Weg damit"
+            Visible: =varLoeschen
+            Width: =199
+            X: =383
+            Y: =548
+            ZIndex: =27
+

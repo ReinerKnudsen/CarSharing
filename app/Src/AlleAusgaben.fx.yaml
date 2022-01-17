@@ -1,0 +1,164 @@
+"AlleAusgaben As screen.'phoneLayout_FluidGridWithHeaderPageLayout_ver3.0'":
+    Height: =Max(App.Height, App.DesignHeight)
+    OnVisible: =Refresh(Ausgaben)
+    Width: =Max(App.Width, App.DesignWidth)
+
+    "Gallery1 As gallery.'BrowseLayout_Vertical_ThreeTextOneImageVariant_ver4.0'":
+        Height: =984
+        Items: =SortByColumns(Filter( Ausgaben, Gruppe = Session.Group), "creb3_datum", Descending)
+        Layout: =Layout.Vertical
+        OnSelect: |-
+            =Set( aktAusgabe, ThisItem);
+            Navigate(
+                AusgabenDetails,
+                ScreenTransition.None
+            )
+        TemplatePadding: =0
+        TemplateSize: =110
+        Y: =107
+        ZIndex: =1
+
+        Image15 As image:
+            Height: =80
+            Image: =LookUp(Bilder, Art = Text(ThisItem.Ausgabe_Art)).Bild
+            OnSelect: =Select(Parent)
+            Transparency: =0.5
+            Width: =80
+            X: =16
+            Y: =17
+            ZIndex: =1
+
+        Title2 As label:
+            Height: =Self.Size * 1.8
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Text: =ThisItem.Gruppe
+            VerticalAlign: =VerticalAlign.Top
+            Width: =400
+            X: =114
+            Y: =16
+            ZIndex: =2
+
+        Subtitle2 As label:
+            Height: =Self.Size * 1.8
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Text: =LookUp(WochenTage, Tag = Weekday(ThisItem.Datum)).Name & ", " & Text(ThisItem.Datum, DateTimeFormat.ShortDate)
+            VerticalAlign: =VerticalAlign.Top
+            Width: =400
+            X: =114
+            Y: =Title2.Y + Title2.Height + 2
+            ZIndex: =3
+
+        Body1 As label:
+            Align: =Align.Right
+            FontWeight: =FontWeight.Semibold
+            Height: =36
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =20
+            Text: |-
+                =Text(ThisItem.Betrag, "[$-en-GB]#0.00 €")
+            VerticalAlign: =VerticalAlign.Top
+            Width: =169
+            X: =345
+            Y: =16
+            ZIndex: =4
+
+        Separator2 As rectangle:
+            Height: =1
+            OnSelect: =Select(Parent)
+            Width: =Parent.TemplateWidth
+            Y: =Parent.TemplateHeight - 1
+            ZIndex: =6
+
+        Icon5 As icon.NextArrow:
+            Icon: =Icon.NextArrow
+            OnSelect: |-
+                =Set( aktAusgabe, ThisItem);
+                Navigate(
+                    AusgabenDetails,
+                    ScreenTransition.None
+                )
+            X: =548
+            Y: =24
+            ZIndex: =7
+
+    labVersion_6 As label:
+        Align: =Align.Center
+        Color: =RGBA(0, 13, 75, 1)
+        Fill: =RGBA(230, 230, 230, 0.53)
+        Height: =45
+        OnSelect: =Navigate(ScreenVersionen, ScreenTransition.None)
+        Size: =16
+        Text: ="Version " & LookUp( myVersionen, creb3_index = Max( myVersionen, creb3_index)).version
+        Width: =640
+        Y: =1091
+        ZIndex: =9
+
+    GroupHeader_3 As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =20
+        ZIndex: =10
+
+        RectQuickActionBar2_4 As rectangle:
+            Height: =106
+            Width: =640
+            ZIndex: =5
+
+        LblAppName2_5 As label:
+            Align: =Align.Center
+            FontWeight: =FontWeight.Bold
+            Height: =80
+            Size: =27
+            Text: ="Alle Ausgaben"
+            Width: =320
+            Wrap: =false
+            X: =166
+            Y: =10
+            ZIndex: =6
+
+        ButtonNew_4 As button:
+            Align: =Align.Right
+            BorderColor: =Transparent
+            BorderThickness: =0
+            Fill: =Transparent
+            Height: =80
+            HoverBorderColor: =Self.BorderColor
+            HoverFill: =Self.Fill
+            OnSelect: =NewForm(Form4);Navigate(NeueAusgabe, ScreenTransition.None)
+            PaddingRight: =10
+            PressedBorderColor: =Self.BorderColor
+            PressedFill: =Self.HoverFill
+            Size: =24
+            Text: ="Neu"
+            X: =474
+            Y: =10
+            ZIndex: =7
+
+        ButtonBack_4 As button:
+            Align: =Align.Left
+            BorderColor: =Transparent
+            BorderThickness: =0
+            Fill: =Transparent
+            Height: =80
+            HoverBorderColor: =Self.BorderColor
+            HoverFill: =Self.Fill
+            OnSelect: =Navigate(Start, ScreenTransition.None)
+            PaddingLeft: =10
+            PressedBorderColor: =Self.BorderColor
+            PressedFill: =Self.HoverFill
+            Size: =24
+            Text: ="Zurück"
+            X: =6
+            Y: =10
+            ZIndex: =8
+

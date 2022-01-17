@@ -1,0 +1,40 @@
+ScreenNeueBuchungDoku As screen:
+    Height: =Max(App.Height, App.DesignHeight)
+    Width: =Max(App.Width, App.DesignWidth)
+
+    Label19 As label:
+        Height: =842
+        Size: =16
+        Text: |-
+            ="Der Screen übernimmt das selektierte Datum aus der Kalenderansicht:
+            _locDateSelected wird dafür in dem versteckten Button definiert.
+            
+            Alle Datumsfelder werden im ""OnVisible"" des Screens initial gesetzt:
+            Das StartDatum auf _locDateSelected, wenn es größer ist als Today(), sonst auf Today(),
+            das EndeDatum auf StartDatum. 
+            Die Uhrzeiten werden auf 8:00 und 9:00 Uhr gesetzt
+            
+            Wird ein StartDatum ausgewählt, das größer ist als das gesetzte EndeDatum, wird das EndeDatum angepasst.
+            Umgekehrt: Wir ein EndeDatum gewählt, dass kleiner ist, als das StartDatum, wird das StartDatum auf EndeDatum gesetzt.
+            
+            Die Uhrzeiten werden gegeneinander validiert. Wird die Endezeit am gleichen Tag kleiner gesetzt, als die Startzeit, erscheint ein Fehler und der SPEICHERN Button wird versteckt. 
+            
+            Das Ganze wird dann über die V2-Version der CalendarPostItem-Methode in den Kalender eingetragen. Die aktuelle V4-Methode wollte partout nicht mit mir arbeiten :( 
+            
+            "
+        VerticalAlign: =VerticalAlign.Top
+        Width: =572
+        X: =34
+        Y: =40
+        ZIndex: =1
+
+    Button5 As button:
+        Height: =70
+        OnSelect: =Back()
+        Size: =24
+        Text: ="Zurück"
+        Width: =280
+        X: =180
+        Y: =1038
+        ZIndex: =2
+

@@ -1,0 +1,48 @@
+{
+  "QualifiedValues": [
+    {
+      "Kind": "default.cds_systemuser_forms",
+      "Namespace": "Benutzer (Forms)",
+      "Values": {
+        "Anwendungsbenutzer": "d26924ef-4d80-46f7-ab1d-e6ae80a54ce8",
+        "Benutzer": "c2cd9e55-d4b4-4b55-9951-16ead79643e5",
+        "Benutzerformular – geschäftlich": "c2413504-7eb2-4c59-a087-95d819866114",
+        "Informationen": "094fb08a-77bb-49e0-b7ea-8dbddfd01294",
+        "Kachelformular für Benutzerhierarchie": "c68d6c09-d7a7-4959-8d0f-44b8cff9b452"
+      }
+    },
+    {
+      "Kind": "default.cds_creb3_ausgabe_forms",
+      "Namespace": "Ausgaben (Forms)",
+      "Values": {
+        "Informationen": "10832c78-64e9-4aff-8d09-13aeae347a92"
+      }
+    },
+    {
+      "Kind": "default.cds_creb3_steuerdatum_forms",
+      "Namespace": "Steuerdaten (Forms)",
+      "Values": {
+        " main form": "a75cde02-ca6e-eb11-a812-000d3a274427",
+        "Edit Form": "032316a6-42c3-ea11-a812-000d3a2c88f0",
+        "Informationen": "c5f236a2-c507-4e53-9dbd-8820e1b201c4"
+      }
+    },
+    {
+      "Kind": "default.cds_creb3_fahrten_forms",
+      "Namespace": "Fahrten (Forms)",
+      "Values": {
+        " main form": "2d197740-56c3-ea11-a812-000d3a2c88f0",
+        "Informationen": "f8b0f70b-a369-4852-ba1e-ef5c2a146249",
+        "Neues Formular": "3fd7409d-ee6d-445a-874f-8978c188592c"
+      }
+    },
+    {
+      "Kind": "default.cds_creb3_version_forms",
+      "Namespace": "Versionen (Forms)",
+      "Values": {
+        "Informationen": "18ace234-2124-47da-9f87-d537e82b6c20",
+        "Quick Edit": "ee7b559f-fa13-4f57-8f00-7a30b2fdbef9"
+      }
+    }
+  ]
+}

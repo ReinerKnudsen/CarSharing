@@ -1,0 +1,106 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "creb3_fahrtens",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "creb3_fahrten",
+    "MaxGetRowsCount": 500,
+    "Name": "Fahrten",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Besitzer",
+      "createdby": "Erstellt von",
+      "createdon": "Erstellt am",
+      "createdonbehalfby": "Erstellt von (Stellvertreter)",
+      "creb3_auto": "Auto",
+      "creb3_ende": "Ende",
+      "creb3_fahrdatum": "Fahrdatum",
+      "creb3_fahrer": "Fahrer",
+      "creb3_fahrten_AsyncOperations": "Systemaufträge",
+      "creb3_fahrten_BulkDeleteFailures": "Massenlöschungsfehler",
+      "creb3_fahrten_MailboxTrackingFolders": "Automatisch nachverfolgte Postfachordner",
+      "creb3_fahrten_PrincipalObjectAttributeAccesses": "Sicherer Feldzugriff",
+      "creb3_fahrten_ProcessSession": "Prozesssitzungen",
+      "creb3_fahrten_SyncErrors": "Synchronisierungsfehler",
+      "creb3_fahrtenid": "Fahrt",
+      "creb3_index": "Index",
+      "creb3_indexn": "IndexN",
+      "creb3_kommentar": "Kommentar",
+      "creb3_kosten": "Kosten",
+      "creb3_mitfahrer": "Gruppe",
+      "creb3_start": "Start",
+      "creb3_strecke": "Strecke",
+      "importsequencenumber": "Importsequenznummer",
+      "modifiedby": "Geändert von",
+      "modifiedon": "Geändert am",
+      "modifiedonbehalfby": "Geändert von (Stellvertreter)",
+      "overriddencreatedon": "Datensatz erstellt am",
+      "owningbusinessunit": "Besitzer (Unternehmenseinheit)",
+      "owningteam": "Besitzer (Team)",
+      "owninguser": "Besitzer (Benutzer)",
+      "statecode": "Status",
+      "statuscode": "Statusgrund",
+      "timezoneruleversionnumber": "Versionsnummer der Zeitzonenregel",
+      "utcconversiontimezonecode": "Zeitzonencode für die UTC-Konvertierung",
+      "versionnumber": "Versionsnummer"
+    },
+    "PreferredName": "Fahrten",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Fahrten (Views)",
+    "Name": "_creb3_fahrten_views",
+    "RelatedEntityName": "Fahrten",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "184e69c5-ddd8-4b73-aebd-3d7a63245f93": "Fahrten Zugeordnete Ansicht",
+      "3d78d43d-f015-4250-aa9f-b44be43893ab": "Fahrten Ansicht für die erweiterte Suche",
+      "4722c7f5-7a11-46a5-8f83-e0ad64e7ee11": "Aktive Fahrten",
+      "66f2ddc6-7bca-4ef4-a19a-85031693fe9a": "Fahrten Suchansicht",
+      "b6f5fd8d-a3c2-ea11-a812-000d3a2c88f0": "Standard View",
+      "bf1f957f-36ca-4411-88f6-fa97de4b22d6": "Inaktive Fahrtens"
+    }
+  },
+  {
+    "DisplayName": "Status (Fahrten)",
+    "Name": "creb3_fahrten_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Aktiv",
+      "1": "Inaktiv"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Fahrten"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Fahrten",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Statusgrund (Fahrten)",
+    "Name": "creb3_fahrten_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Aktiv",
+      "2": "Inaktiv"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Fahrten"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Fahrten",
+    "Type": "OptionSetInfo"
+  }
+]
