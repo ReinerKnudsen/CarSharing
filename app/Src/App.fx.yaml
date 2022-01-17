@@ -3,17 +3,33 @@ App As appinfo:
     MinScreenHeight: =320
     MinScreenWidth: =320
     OnStart: |-
-        =ClearCollect( myFahrten, Fahrten); 
-        ClearCollect( myAusgaben, Ausgaben);
-        ClearCollect( mySteuerdaten, Steuerdaten);
-        ClearCollect( myVersionen, Versionen);
-        ClearCollect( Bilder, 
-         {Art: "Tanken", Bild: 'gas-station'}, 
-         {Art: "Wäsche", Bild: '003-car-wash'}, 
-         {Art: "Überweisung", Bild: '002-money-transfer'}, 
-         {Art: "Wartung", Bild: '004-maintenance'}, 
-         {Art: "Parken", Bild: '005-parking'});
-        Set( myFahrzeug, "BN-AZ 1820");
+        =ClearCollect( 
+            myFahrten, 
+            Fahrten
+        ); 
+        ClearCollect( 
+            myAusgaben, 
+            Ausgaben
+        );
+        ClearCollect( 
+            mySteuerdaten, 
+            Steuerdaten
+        );
+        ClearCollect( 
+            myVersionen, 
+            Versionen
+        );
+        ClearCollect( 
+            Bilder, 
+            {Art: "Tanken", Bild: 'gas-station'}, 
+            {Art: "Wäsche", Bild: '003-car-wash'}, 
+            {Art: "Überweisung", Bild: '002-money-transfer'}, 
+            {Art: "Wartung", Bild: '004-maintenance'}, 
+            {Art: "Parken", Bild: '005-parking'});
+        Set( 
+            myFahrzeug, 
+            "BN-AZ 1820"
+        );
         Set(
             Session,
             {
@@ -26,8 +42,16 @@ App As appinfo:
                 fill: RGBA(215, 223, 240, 100)
             }
         );
-        Set(KMPreis, LookUp( Steuerdaten, Name = "KMPreis").Betrag);
-        If( Session.Group = "Jenny & Reiner", Set( varAdminGroup, true), Set( varAdminGroup, false));
+        Set(
+            KMPreis, 
+            LookUp( Steuerdaten, Name = "KMPreis").Betrag
+        );
+        If( 
+            Session.Group = "Jenny & Reiner", 
+            Set( varAdminGroup, true), 
+            // else
+            Set( varAdminGroup, false)
+        );
         ClearCollect(HoursList, 
              {Name:"00:00",Minutes:0}, {Name:"00:30",Minutes:30}, {Name:"01:00",Minutes:60}, {Name:"01:30",Minutes:90},
              {Name:"02:00",Minutes:120}, {Name:"02:30",Minutes:150}, {Name:"03:00",Minutes:180}, {Name:"03:30",Minutes:210},
