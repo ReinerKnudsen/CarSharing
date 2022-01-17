@@ -623,6 +623,15 @@ Start As screen:
         Y: =20
         ZIndex: =16
 
+    Icon3 As icon.Signal:
+        Height: =48
+        Icon: =Icon.Signal
+        Visible: =Connection.Connected
+        Width: =46
+        X: =586
+        Y: =100
+        ZIndex: =17
+
     GroupHeaderStart As group:
         Height: =5
         Width: =5
