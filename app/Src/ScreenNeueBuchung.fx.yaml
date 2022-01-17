@@ -1,0 +1,252 @@
+ScreenNeueBuchung As screen:
+    Fill: =Transparent
+    Height: =Max(App.Height, App.DesignHeight)
+    OnVisible: |-
+        =/* Beide Textfelder per Default auf heute setzen */
+        UpdateContext({
+            varStartDatum: If( _locDateSelected < Today(), Today(), _locDateSelected),
+            varStartZeit: 480, 
+            varEndeZeit: 540});
+        /* Weil der hier das varStartDatum verwendet, wird der getrennt aktualisiert */
+        UpdateContext({
+                varEndeDatum: varStartDatum});
+        UpdateContext({
+            _startTimeUTC: DateAdd(varStartDatum, varStartZeit, Minutes),
+            _endTimeUTC: DateAdd(varEndeDatum, varEndeZeit, Minutes)})
+    Width: =Max(App.Width, App.DesignWidth)
+
+    labGruppe As label:
+        DisplayMode: =DisplayMode.View
+        Height: =62
+        Size: =21
+        Text: ="Gruppe"
+        Width: =274
+        X: =34
+        Y: =140
+        ZIndex: =5
+
+    GroupHeader_6 As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =20
+        ZIndex: =5
+
+        RectQuickActionBar2_9 As rectangle:
+            Width: =Parent.Width
+            ZIndex: =1
+
+        LblAppName2_10 As label:
+            Align: =Align.Center
+            FontWeight: =FontWeight.Bold
+            Height: =66
+            Size: =27
+            Text: ="Neue Buchung"
+            Width: =299
+            Wrap: =false
+            X: =165
+            Y: =17
+            ZIndex: =2
+
+        ButtonSave_1 As button:
+            Align: =Align.Right
+            BorderColor: =Transparent
+            BorderThickness: =0
+            DisabledFill: =Session.bgColor
+            DisplayMode: =
+            Fill: =Transparent
+            Height: =80
+            HoverBorderColor: =Self.BorderColor
+            HoverFill: =Self.Fill
+            OnSelect: |-
+                =If( !IsError( Office365Outlook.V3CalendarPostItem(
+                    myCalendar.id, 
+                    Session.Group,
+                    DateTimeValue( Text( _startTimeUTC, DateTimeFormat.UTC)),
+                    DateTimeValue( Text( _endTimeUTC, DateTimeFormat.UTC)),
+                    {Body: "Erzeugt von " & User().FullName & " am " & Today()}
+                    );
+                ), Notify("Den Termin habe ich mir notiert", NotificationType.Success, 2000),
+                   Notify("Mist! Das hat nicht funktioniert.", NotificationType.Error, 2000));
+                Navigate(ScreenKalender, ScreenTransition.None)
+            PaddingRight: =10
+            PressedBorderColor: =Self.BorderColor
+            PressedFill: =Self.HoverFill
+            Size: =24
+            Text: ="Speichern"
+            Visible: =!Label29.Visible
+            Width: =170
+            X: =464
+            Y: =10
+            ZIndex: =3
+
+        ButtonBackNF_1 As button:
+            Align: =Align.Left
+            BorderColor: =Transparent
+            BorderThickness: =0
+            Fill: =Transparent
+            Height: =80
+            HoverBorderColor: =Self.BorderColor
+            OnSelect: =Navigate(ScreenKalender, ScreenTransition.None)
+            PaddingLeft: =10
+            PressedBorderColor: =Self.BorderColor
+            PressedFill: =Self.HoverFill
+            Size: =24
+            Text: ="Zurück"
+            X: =6
+            Y: =10
+            ZIndex: =4
+
+    labBuchungGruppe As label:
+        Align: =Align.Right
+        DisplayMode: =DisplayMode.View
+        Height: =62
+        Size: =21
+        Text: =Session.Group
+        Width: =384
+        X: =210
+        Y: =140
+        ZIndex: =6
+
+    StartDatePicker As datepicker:
+        DefaultDate: =varStartDatum
+        Height: =70
+        InputTextPlaceholder: =
+        OnChange: |-
+            =/* In case the selected start date ist later that the currently selected end date */
+            If(
+                Self.SelectedDate > EndDatePicker.SelectedDate, 
+                UpdateContext({ 
+                    varEndeDatum: Self.SelectedDate}));
+            UpdateContext({ 
+                    varStartDatum: Self.SelectedDate});
+            UpdateContext({ 
+                    _startTimeUTC: DateAdd( varStartDatum, varStartZeit, Minutes)})
+        Size: =21
+        Width: =280
+        X: =34
+        Y: =296
+        ZIndex: =7
+
+    labStart As label:
+        Height: =70
+        Size: =21
+        Text: ="Start"
+        Width: =560
+        X: =34
+        Y: =226
+        ZIndex: =9
+
+    EndDatePicker As datepicker:
+        DefaultDate: =varEndeDatum
+        Height: =70
+        OnChange: |-
+            =/* Ist das Enddatum kleiner als das Startdatum, wird das Startdatum auf das Enddatum gesetzt */
+            If( 
+                Self.SelectedDate < StartDatePicker.SelectedDate,
+                UpdateContext( { varStartDatum: Self.SelectedDate})
+                );
+            UpdateContext({
+                varEndeDatum: Self.SelectedDate});
+            UpdateContext({
+                _endTimeUTC: DateAdd(varEndeDatum, varEndeZeit, Minutes)})
+        OnSelect: =
+        Size: =21
+        Width: =274
+        X: =40
+        Y: =458
+        ZIndex: =10
+
+    labEnde As label:
+        Height: =70
+        Size: =21
+        Text: ="Ende"
+        Width: =560
+        X: =40
+        Y: =388
+        ZIndex: =12
+
+    StartTimePicker As dropdown:
+        Default: =LookUp(HoursList, Minutes = varStartZeit).Name
+        Height: =70
+        Items: =HoursList
+        OnChange: |-
+            =UpdateContext({
+                varStartZeit: Self.Selected.Minutes});
+            UpdateContext({
+                _startTimeUTC: DateAdd( varStartDatum, varStartZeit, Minutes)})
+                
+                
+        Size: =21
+        Width: =235
+        X: =365
+        Y: =296
+        ZIndex: =16
+
+    EndTimePicker As dropdown:
+        Default: =LookUp(HoursList, Minutes = varEndeZeit).Name
+        Height: =70
+        Items: =HoursList
+        OnChange: |-
+            =UpdateContext({ 
+                varEndeZeit: Self.Selected.Minutes}); 
+            UpdateContext({ 
+                _endTimeUTC: DateAdd(varEndeDatum, varEndeZeit, Minutes)})
+        Size: =21
+        Width: =235
+        X: =365
+        Y: =455
+        ZIndex: =18
+
+    Button4 As button:
+        Height: =33
+        OnSelect: |-
+            =UpdateContext({_locDateSelected: Today()})
+        Size: =24
+        Text: ="Prüfen"
+        Visible: =false
+        Width: =292
+        X: =174
+        Y: =1050
+        ZIndex: =19
+
+    grpFehler As group:
+        Height: =5
+        Width: =5
+        X: =60
+        Y: =60
+        ZIndex: =24
+
+        Label29 As label:
+            Color: =RGBA(184, 0, 0, 1)
+            Height: =50
+            Size: =12
+            Text: ="Die Ende-Zeit muss größer sein, als die Start-Zeit"
+            Visible: =If(And(varStartDatum = varEndeDatum, EndTimePicker.Selected.Minutes < varStartZeit), true, false)
+            Width: =235
+            X: =401
+            Y: =541
+            ZIndex: =22
+
+        Icon4 As icon.Warning:
+            Color: =RGBA(184, 0, 0, 1)
+            Height: =50
+            Icon: =Icon.Warning
+            Visible: =If(And(varStartDatum = varEndeDatum, EndTimePicker.Selected.Minutes < varStartZeit), true, false)
+            Width: =36
+            X: =365
+            Y: =541
+            ZIndex: =23
+
+    labVersion_4 As label:
+        Align: =Align.Center
+        Color: =RGBA(0, 13, 75, 1)
+        Fill: =RGBA(230, 230, 230, 0.53)
+        Height: =45
+        OnSelect: =Navigate(ScreenVersionen, ScreenTransition.None)
+        Size: =16
+        Text: ="Version " & LookUp( myVersionen, creb3_index = Max( myVersionen, creb3_index)).version
+        Width: =640
+        Y: =1091
+        ZIndex: =25
+

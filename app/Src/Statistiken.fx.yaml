@@ -1,0 +1,165 @@
+"Statistiken As screen.'phoneDetailEditLayout_ver3.0'":
+    Height: =Max(App.Height, App.DesignHeight)
+    Width: =Max(App.Width, App.DesignWidth)
+
+    Label1 As label:
+        Align: =Align.Right
+        Height: =50
+        Size: =21
+        Text: =CountIf( myFahrten, Gruppe = Session.Group)
+        Width: =121
+        X: =455
+        Y: =268
+        ZIndex: =1
+
+    Label2 As label:
+        Align: =Align.Right
+        Height: =50
+        Size: =21
+        Text: |-
+            =Text(Sum(Filter( myFahrten, Gruppe = Session.Group),Strecke), "[$-en-GB]#,000")
+        Width: =121
+        X: =455
+        Y: =335
+        ZIndex: =2
+
+    Label3 As label:
+        Height: =50
+        Size: =21
+        Text: ="Anzahl Fahrten"
+        Width: =410
+        X: =45
+        Y: =268
+        ZIndex: =3
+
+    Label4 As label:
+        Align: =Align.Right
+        Height: =50
+        Size: =21
+        Text: |-
+            =Text(Average(Filter( myFahrten, creb3_mitfahrer = Session.Group),Strecke), "[$-en-GB]#,####")
+        Width: =121
+        X: =455
+        Y: =405
+        ZIndex: =4
+
+    Label5 As label:
+        Height: =50
+        Size: =21
+        Text: ="Gesamtstrecke (km)"
+        Width: =410
+        X: =45
+        Y: =335
+        ZIndex: =5
+
+    Label6 As label:
+        Height: =50
+        Size: =21
+        Text: ="Durchschnitt pro Fahrt (km)"
+        Width: =410
+        X: =45
+        Y: =405
+        ZIndex: =6
+
+    Icon1 As icon.BackArrow:
+        BorderColor: =RGBA(255, 255, 255, 1)
+        Color: =RGBA(255, 255, 255, 1)
+        Icon: =Icon.BackArrow
+        OnSelect: =Back()  
+        X: =20
+        Y: =23
+        ZIndex: =9
+
+    Rectangle2 As rectangle:
+        Height: =1
+        Width: =638
+        X: =2
+        Y: =326
+        ZIndex: =10
+
+    Rectangle2_1 As rectangle:
+        Height: =1
+        Width: =638
+        Y: =395
+        ZIndex: =11
+
+    Rectangle2_2 As rectangle:
+        Height: =1
+        Width: =638
+        Y: =465
+        ZIndex: =12
+
+    Label8_2 As label:
+        Align: =Align.Center
+        FontWeight: =FontWeight.Bold
+        Height: =70
+        Size: =26
+        Text: =Session.Group
+        Width: =620
+        X: =20
+        Y: =110
+        ZIndex: =13
+
+    Label8_3 As label:
+        FontWeight: =FontWeight.Bold
+        Height: =70
+        Size: =26
+        Text: ="Fahrten"
+        Width: =620
+        X: =18
+        Y: =171
+        ZIndex: =14
+
+    labVersion_10 As label:
+        Align: =Align.Center
+        Color: =RGBA(0, 13, 75, 1)
+        Fill: =RGBA(230, 230, 230, 0.53)
+        Height: =45
+        OnSelect: =Navigate(ScreenVersionen, ScreenTransition.None)
+        Size: =16
+        Text: ="Version " & LookUp( myVersionen, creb3_index = Max( myVersionen, creb3_index)).version
+        Width: =640
+        Y: =1091
+        ZIndex: =18
+
+    GroupHeader_7 As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =18
+
+        RectQuickActionBar2_8 As rectangle:
+            Height: =106
+            Width: =640
+            ZIndex: =15
+
+        LblAppName2_9 As label:
+            Align: =Align.Center
+            FontWeight: =FontWeight.Bold
+            Height: =80
+            Size: =27
+            Text: ="Statistiken"
+            Width: =320
+            Wrap: =false
+            X: =160
+            Y: =10
+            ZIndex: =16
+
+        ButtonBack_8 As button:
+            Align: =Align.Left
+            BorderColor: =Transparent
+            BorderThickness: =0
+            Fill: =Transparent
+            Height: =80
+            HoverBorderColor: =Self.BorderColor
+            OnSelect: =Back()
+            PaddingLeft: =10
+            PressedBorderColor: =Self.BorderColor
+            PressedFill: =Self.HoverFill
+            Size: =24
+            Text: ="Zurück"
+            X: =2
+            Y: =10
+            ZIndex: =17
+

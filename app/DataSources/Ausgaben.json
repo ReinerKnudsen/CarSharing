@@ -1,0 +1,129 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "creb3_ausgabes",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "creb3_ausgabe",
+    "MaxGetRowsCount": 500,
+    "Name": "Ausgaben",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Besitzer",
+      "createdby": "Erstellt von",
+      "createdon": "Erstellt am",
+      "createdonbehalfby": "Erstellt von (Stellvertreter)",
+      "creb3_art": "Art",
+      "creb3_ausgabe_art": "Ausgabe_Art",
+      "creb3_ausgabe_AsyncOperations": "Systemaufträge",
+      "creb3_ausgabe_BulkDeleteFailures": "Massenlöschungsfehler",
+      "creb3_ausgabe_MailboxTrackingFolders": "Automatisch nachverfolgte Postfachordner",
+      "creb3_ausgabe_PrincipalObjectAttributeAccesses": "Sicherer Feldzugriff",
+      "creb3_ausgabe_ProcessSession": "Prozesssitzungen",
+      "creb3_ausgabe_SyncErrors": "Synchronisierungsfehler",
+      "creb3_ausgabeid": "Ausgaben",
+      "creb3_auto": "Auto",
+      "creb3_belegbild": "Belegbild",
+      "creb3_belegbildid": "creb3_belegbildId",
+      "creb3_betrag": "Betrag",
+      "creb3_datum": "Datum",
+      "creb3_gruppe": "Gruppe",
+      "creb3_index": "Index",
+      "creb3_kommentare": "Kommentare",
+      "creb3_name": "Name",
+      "creb3_ort": "Ort",
+      "importsequencenumber": "Importsequenznummer",
+      "modifiedby": "Geändert von",
+      "modifiedon": "Geändert am",
+      "modifiedonbehalfby": "Geändert von (Stellvertreter)",
+      "overriddencreatedon": "Datensatz erstellt am",
+      "owningbusinessunit": "Besitzer (Unternehmenseinheit)",
+      "owningteam": "Besitzer (Team)",
+      "owninguser": "Besitzer (Benutzer)",
+      "statecode": "Status",
+      "statuscode": "Statusgrund",
+      "timezoneruleversionnumber": "Versionsnummer der Zeitzonenregel",
+      "utcconversiontimezonecode": "Zeitzonencode für die UTC-Konvertierung",
+      "versionnumber": "Versionsnummer"
+    },
+    "PreferredName": "Ausgaben",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Ausgaben (Views)",
+    "Name": "_creb3_ausgabe_views",
+    "RelatedEntityName": "Ausgaben",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "001248b3-4b13-4bba-b933-ef6bb67b7179": "Ausgaben Suchansicht",
+      "03535fce-72a5-4dc5-8755-2fa50f04989c": "Ausgaben Zugeordnete Ansicht",
+      "c1f9745e-47d4-4251-9fd8-d539f7a47eb5": "Ausgaben Ansicht für die erweiterte Suche",
+      "cfcb58cd-470e-4b43-ab36-71cd3a9f93a5": "Alle Ausgaben",
+      "d2bcf92e-e313-4bce-94ac-56f417c125c9": "Inaktive Ausgabens"
+    }
+  },
+  {
+    "DisplayName": "Status (Ausgaben)",
+    "Name": "creb3_ausgabe_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Aktiv",
+      "1": "Inaktiv"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Ausgaben"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Ausgaben",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Statusgrund (Ausgaben)",
+    "Name": "creb3_ausgabe_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Aktiv",
+      "2": "Inaktiv"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Ausgaben"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Ausgaben",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Ausgabeart",
+    "Name": "creb3_ausgabeart",
+    "OptionSetInfoNameMapping": {
+      "558200000": "Parken",
+      "558200001": "Tanken",
+      "558200002": "Wäsche",
+      "558200003": "Wartung",
+      "558200004": "Überweisung"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "creb3_ausgabe_art",
+        "OptionSetReferenceEntityName": "Ausgaben"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "creb3_ausgabe_art",
+    "RelatedEntityName": "Ausgaben",
+    "Type": "OptionSetInfo"
+  }
+]

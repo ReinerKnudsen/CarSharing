@@ -1,0 +1,401 @@
+ScreenVersionenNeu As screen:
+    Height: =Max(App.Height, App.DesignHeight)
+    Width: =Max(App.Width, App.DesignWidth)
+
+    Form5 As form:
+        DataSource: =Versionen
+        Height: =752
+        Width: =640
+        Y: =351
+        ZIndex: =1
+
+        version_DataCard1 As typedDataCard.textualEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="creb3_version"
+            Default: =ThisItem.version
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: ="version"
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            MaxLength: =DataSourceInfo([@Versionen], DataSourceInfo.MaxLength, "creb3_version")
+            Required: =true
+            Update: =DataCardValue8.Text
+            Width: =640
+            X: =0
+            Y: =0
+            ZIndex: =1
+
+            DataCardKey16 As label:
+                AutoHeight: =true
+                Height: =48
+                Size: =21
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue8 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                Height: =70
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Size: =21
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey16.Y + DataCardKey16.Height + 5
+                ZIndex: =2
+
+            ErrorMessage18 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue8.Y + DataCardValue8.Height
+                ZIndex: =3
+
+            StarVisible16 As label:
+                Align: =Align.Center
+                Height: =DataCardKey16.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey16.Y
+                ZIndex: =4
+
+        Index_DataCard3 As typedDataCard.numberEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="creb3_index"
+            Default: =ThisItem.Index
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: ="Index"
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =true
+            Update: =Value(DataCardValue9.Text)
+            Width: =640
+            X: =0
+            Y: =1
+            ZIndex: =1
+
+            DataCardKey18 As label:
+                AutoHeight: =true
+                Height: =48
+                Size: =21
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue9 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                Format: =TextFormat.Number
+                Height: =70
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Size: =21
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey18.Y + DataCardKey18.Height + 5
+                ZIndex: =2
+
+            ErrorMessage19 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue9.Y + DataCardValue9.Height
+                ZIndex: =3
+
+            StarVisible17 As label:
+                Align: =Align.Center
+                Height: =DataCardKey18.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey18.Y
+                ZIndex: =4
+
+        Aenderung_DataCard1 As typedDataCard.textualMultiLineEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="creb3_aenderung"
+            Default: =ThisItem.Aenderung
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: ="Aenderung"
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =true
+            Update: =DataCardValue12.Text
+            Width: =640
+            X: =0
+            Y: =2
+            ZIndex: =1
+
+            DataCardKey20 As label:
+                AutoHeight: =true
+                Height: =48
+                Size: =21
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue12 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                Height: =220
+                Mode: =TextMode.MultiLine
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Size: =16
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey20.Y + DataCardKey20.Height + 5
+                ZIndex: =2
+
+            ErrorMessage21 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue12.Y + DataCardValue12.Height
+                ZIndex: =3
+
+            StarVisible19 As label:
+                Align: =Align.Center
+                Height: =DataCardKey20.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey20.Y
+                ZIndex: =4
+
+        Datum_DataCard2 As typedDataCard.dateTimeEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="creb3_datum"
+            Default: =ThisItem.Datum
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: ="Datum"
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =true
+            Update: =DateValue1.SelectedDate
+            Width: =640
+            X: =0
+            Y: =3
+            ZIndex: =1
+
+            DataCardKey23 As label:
+                AutoHeight: =true
+                Height: =48
+                Size: =21
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DateValue1 As datepicker:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                DisplayMode: =Parent.DisplayMode
+                EndYear: =Year(Today())+100
+                Height: =48
+                IsEditable: =true
+                PaddingBottom: =0
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                Size: =21
+                StartYear: =1899
+                Tooltip: =Parent.DisplayName
+                Width: =295
+                X: =315
+                Y: =10
+                ZIndex: =2
+
+            Separator5 As label:
+                Align: =Align.Center
+                FontWeight: =FontWeight.Bold
+                Height: =
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =21
+                Text: |-
+                    =":"
+                Width: =10
+                Wrap: =false
+                X: =
+                Y: =
+                ZIndex: =4
+
+            StarVisible20 As label:
+                Align: =Align.Center
+                Height: =DataCardKey23.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey23.Y
+                ZIndex: =7
+
+    Label30 As label:
+        Height: =70
+        Size: =21
+        Text: |-
+            ="Aktuelle Version:"
+        Width: =560
+        X: =28
+        Y: =132
+        ZIndex: =2
+
+    Label31 As label:
+        Align: =Align.Right
+        Height: =70
+        Size: =21
+        Text: =LookUp( myVersionen, creb3_index = Max( myVersionen, creb3_index)).version
+        Width: =296
+        X: =292
+        Y: =132
+        ZIndex: =6
+
+    GroupHeader_9 As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =20
+        ZIndex: =6
+
+        RectQuickActionBar2_11 As rectangle:
+            Width: =Parent.Width
+            Y: =1
+            ZIndex: =3
+
+        LblAppName2_2 As label:
+            Align: =Align.Center
+            FontWeight: =FontWeight.Bold
+            Height: =62
+            Size: =27
+            Text: ="Neue Version"
+            Width: =306
+            Wrap: =false
+            X: =167
+            Y: =20
+            ZIndex: =4
+
+        ButtonBack_3 As button:
+            Align: =Align.Left
+            BorderColor: =Transparent
+            BorderThickness: =0
+            Fill: =Transparent
+            Height: =80
+            HoverBorderColor: =Self.BorderColor
+            OnSelect: =Back()
+            PaddingLeft: =10
+            PressedBorderColor: =Self.BorderColor
+            PressedFill: =Self.HoverFill
+            Size: =24
+            Text: ="Zurück"
+            Y: =11
+            ZIndex: =5
+
+    Label32 As label:
+        Height: =70
+        Size: =21
+        Text: |-
+            ="Aktueller Index:"
+        Width: =560
+        X: =28
+        Y: =202
+        ZIndex: =7
+
+    Label33 As label:
+        Align: =Align.Right
+        Height: =70
+        Size: =21
+        Text: =LookUp( myVersionen, creb3_index = Max( myVersionen, creb3_index)).Index
+        Width: =227
+        X: =361
+        Y: =202
+        ZIndex: =8
+
+    Icon8 As icon.Check:
+        Color: =RGBA(255, 255, 255, 1)
+        Icon: =Icon.Check
+        OnSelect: |-
+            =SubmitForm(Form5); 
+            ClearCollect( myVersionen, Versionen);
+            Back()
+        X: =563
+        Y: =20
+        ZIndex: =9
+
+    labVersion_13 As label:
+        Align: =Align.Center
+        Color: =RGBA(0, 13, 75, 1)
+        Fill: =RGBA(230, 230, 230, 0.53)
+        Height: =45
+        OnSelect: =Navigate(ScreenVersionen, ScreenTransition.None)
+        Size: =16
+        Text: ="Version " & LookUp( myVersionen, creb3_index = Max( myVersionen, creb3_index)).version
+        Width: =640
+        Y: =1091
+        ZIndex: =10
+

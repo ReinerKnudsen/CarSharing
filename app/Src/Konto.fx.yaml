@@ -1,0 +1,337 @@
+Konto As screen:
+    Height: =Max(App.Height, App.DesignHeight)
+    OnVisible: |-
+        =UpdateContext({dataFahrt: false, dataSpending: false})
+    Width: =Max(App.Width, App.DesignWidth)
+
+    Label22 As label:
+        Align: =Align.Center
+        FontWeight: =FontWeight.Bold
+        Height: =70
+        Size: =21
+        Text: =Session.Group
+        Width: =560
+        X: =40
+        Y: =122
+        ZIndex: =4
+
+    KMKosten As text:
+        Align: =Align.Right
+        Default: |-
+            =Text(Sum(Filter( myFahrten, Gruppe = Session.Group), Kosten), "[$-en-GB]#0.00")
+        DisplayMode: =DisplayMode.View
+        Format: =TextFormat.Number
+        Height: =70
+        Size: =21
+        Width: =266
+        X: =344
+        Y: =219
+        ZIndex: =6
+
+    AusgabenGesamt As text:
+        Align: =Align.Right
+        Default: |-
+            =Text(Sum(Filter( Ausgaben, Gruppe = Session.Group), Betrag), "[$-en-GB]#0.00")
+        DisplayMode: =DisplayMode.View
+        Format: =TextFormat.Number
+        Height: =70
+        Size: =21
+        Width: =266
+        X: =344
+        Y: =307
+        ZIndex: =9
+
+    Kontostand As text:
+        Align: =Align.Right
+        Color: =If(Value(Kontostand.Text) >= 0, Black, Red)
+        Default: |-
+            =Text(AusgabenGesamt.Text - KMKosten.Text, "[$-en-GB]#0.00")
+        DisplayMode: =DisplayMode.View
+        FontWeight: =FontWeight.Bold
+        Height: =70
+        Size: =21
+        Width: =400
+        X: =202
+        Y: =400
+        ZIndex: =11
+
+    Label25_2 As label:
+        FontWeight: =FontWeight.Bold
+        Height: =70
+        Size: =21
+        Text: |-
+            ="Kontostand
+            "
+        Width: =350
+        X: =50
+        Y: =400
+        ZIndex: =12
+
+    ButtonKM As button:
+        Align: =Align.Left
+        BorderThickness: =0
+        Color: =If( !dataFahrt, RGBA(0, 0, 0, 1), Self.HoverColor)
+        Fill: =If( !dataFahrt, RGBA(230, 230, 230, 1), Self.HoverFill)
+        Height: =60
+        OnSelect: |-
+            =If (dataSpending, UpdateContext({dataSpending: !dataSpending})); UpdateContext({dataFahrt: !dataFahrt})
+        PaddingLeft: =10
+        Size: =21
+        Text: ="Kilometerkosten"
+        Width: =280
+        X: =40
+        Y: =224
+        ZIndex: =15
+
+    ButtonSpend As button:
+        Align: =Align.Left
+        BorderThickness: =0
+        Color: =If( !dataSpending, RGBA(0, 0, 0, 1), Self.HoverColor)
+        Fill: =If( !dataSpending, RGBA(230, 230, 230, 1), Self.HoverFill)
+        Height: =60
+        OnSelect: |-
+            =If (dataFahrt, UpdateContext({dataFahrt: !dataFahrt})); UpdateContext({dataSpending: !dataSpending})
+        PaddingLeft: =10
+        Size: =21
+        Text: ="Ausgaben"
+        Width: =280
+        X: =40
+        Y: =312
+        ZIndex: =16
+
+    buttonPayPal As image:
+        Height: =88
+        Image: ='checkout-logo-150x32-alt-2x'
+        OnSelect: |-
+            =Launch("https://www.paypal.me/reinerknudsen")
+        Visible: =If(Value(Kontostand.Text) > 0, false, true)
+        Width: =308
+        X: =291
+        Y: =470
+        ZIndex: =17
+
+    DataTableFahrten As dataTable.datatable:
+        BorderStyle: =BorderStyle.Solid
+        DisplayMode: =DisplayMode.Edit
+        Fill: =RGBA(0, 0, 0, 0)
+        HeadingSize: =16
+        Height: =554
+        Items: =SortByColumns( Filter( Fahrten, creb3_mitfahrer = Session.Group), "creb3_ende", Descending)
+        NoDataText: ="Hier ist gerade nix"
+        Size: =16
+        Visible: =dataFahrt
+        Width: =640
+        X: =0
+        Y: =582
+        ZIndex: =19
+
+        Fahrdatum_Column1 As dataTableColumn.dateTimeColumn:
+            AutoWidth: =false
+            DisplayMode: =DisplayMode.Edit
+            FieldDisplayName: ="Datum"
+            FieldName: ="creb3_fahrdatum"
+            FieldVariantName: ="dateTimeColumn"
+            Height: =Parent.Height
+            LayoutHeight: =Parent.Height
+            Order: =2
+            Text: =Text(ThisItem.Fahrdatum,DateTimeFormat.ShortDate, "de-DE")
+            Width: =150
+            X: =0
+            Y: =0
+            ZIndex: =2
+
+        Start_Column1 As dataTableColumn.numberColumn:
+            AutoWidth: =false
+            DisplayMode: =DisplayMode.Edit
+            FieldDisplayName: ="Start"
+            FieldName: ="creb3_start"
+            FieldVariantName: ="numberColumn"
+            Height: =Parent.Height
+            LayoutHeight: =Parent.Height
+            Order: =3
+            Text: =ThisItem.Start
+            Width: =116
+            X: =0
+            Y: =0
+            ZIndex: =3
+
+        Ende_Column1 As dataTableColumn.numberColumn:
+            AutoWidth: =false
+            DisplayMode: =DisplayMode.Edit
+            FieldDisplayName: ="Ende"
+            FieldName: ="creb3_ende"
+            FieldVariantName: ="numberColumn"
+            Height: =Parent.Height
+            LayoutHeight: =Parent.Height
+            Order: =4
+            Text: =ThisItem.Ende
+            Width: =110
+            X: =0
+            Y: =0
+            ZIndex: =4
+
+        Strecke_Column1 As dataTableColumn.numberColumn:
+            AutoWidth: =false
+            DisplayMode: =DisplayMode.Edit
+            FieldDisplayName: ="Strecke"
+            FieldName: ="creb3_strecke"
+            FieldVariantName: ="numberColumn"
+            Height: =Parent.Height
+            LayoutHeight: =Parent.Height
+            Order: =5
+            Text: =ThisItem.Strecke
+            Width: =122
+            X: =0
+            Y: =0
+            ZIndex: =5
+
+        Kosten_Column1 As dataTableColumn.numberColumn:
+            DisplayMode: =DisplayMode.Edit
+            FieldDisplayName: ="Kosten"
+            FieldName: ="creb3_kosten"
+            FieldVariantName: ="numberColumn"
+            Height: =Parent.Height
+            LayoutHeight: =Parent.Height
+            Order: =6
+            Text: =ThisItem.Kosten
+            Width: =100
+            X: =0
+            Y: =0
+            ZIndex: =6
+
+    DataTable2 As dataTable.datatable:
+        BorderStyle: =BorderStyle.Solid
+        DisplayMode: =DisplayMode.Edit
+        Fill: =RGBA(0, 0, 0, 0)
+        HeadingSize: =16
+        Height: =554
+        Items: =SortByColumns( Filter( Ausgaben, creb3_gruppe = Session.Group), "creb3_datum", Descending)
+        Size: =16
+        Visible: =dataSpending
+        Width: =640
+        X: =0
+        Y: =582
+        ZIndex: =20
+
+        Datum_Column1 As dataTableColumn.dateTimeColumn:
+            AutoWidth: =false
+            DisplayMode: =DisplayMode.Edit
+            FieldDisplayName: ="Datum"
+            FieldName: ="creb3_datum"
+            FieldVariantName: ="dateTimeColumn"
+            Height: =Parent.Height
+            LayoutHeight: =Parent.Height
+            Order: =2
+            Text: =Text(ThisItem.Datum,DateTimeFormat.ShortDate, "de-DE")
+            Width: =138
+            X: =0
+            Y: =0
+            ZIndex: =8
+
+        Art_Column1 As dataTableColumn.textualColumn:
+            AutoWidth: =false
+            DisplayMode: =DisplayMode.Edit
+            FieldDisplayName: ="Art"
+            FieldName: ="creb3_art"
+            FieldVariantName: ="textualColumn"
+            Height: =Parent.Height
+            LayoutHeight: =Parent.Height
+            Order: =4
+            Text: =ThisItem.Art
+            Width: =218
+            X: =0
+            Y: =0
+            ZIndex: =10
+
+        Betrag_Column1 As dataTableColumn.numberColumn:
+            AutoWidth: =false
+            DisplayMode: =DisplayMode.Edit
+            FieldDisplayName: ="Betrag"
+            FieldName: ="creb3_betrag"
+            FieldVariantName: ="numberColumn"
+            Height: =Parent.Height
+            LayoutHeight: =Parent.Height
+            Order: =5
+            Text: =ThisItem.Betrag
+            Width: =126
+            X: =0
+            Y: =0
+            ZIndex: =11
+
+        Ort_Column1 As dataTableColumn.textualColumn:
+            DisplayMode: =DisplayMode.Edit
+            FieldDisplayName: ="Ort"
+            FieldName: ="creb3_ort"
+            FieldVariantName: ="textualColumn"
+            Height: =Parent.Height
+            LayoutHeight: =Parent.Height
+            Order: =6
+            Text: =ThisItem.Ort
+            Width: =100
+            X: =0
+            Y: =0
+            ZIndex: =12
+
+    labVersion_9 As label:
+        Align: =Align.Center
+        Color: =RGBA(0, 13, 75, 1)
+        Fill: =RGBA(230, 230, 230, 0.53)
+        Height: =45
+        OnSelect: =Navigate(ScreenVersionen, ScreenTransition.None)
+        Size: =16
+        Text: ="Version " & LookUp( myVersionen, creb3_index = Max( myVersionen, creb3_index)).version
+        Width: =640
+        Y: =1091
+        ZIndex: =21
+
+    GroupHeader4 As group:
+        Height: =5
+        Width: =5
+        X: =60
+        Y: =60
+        ZIndex: =21
+
+        RectQuickActionBar2_7 As rectangle:
+            Width: =640
+            ZIndex: =1
+
+        LblAppName2_8 As label:
+            Align: =Align.Center
+            FontWeight: =FontWeight.Bold
+            Height: =80
+            Size: =27
+            Text: ="Konto"
+            Width: =320
+            Wrap: =false
+            X: =160
+            Y: =10
+            ZIndex: =2
+
+        ButtonBack_7 As button:
+            Align: =Align.Left
+            BorderColor: =Transparent
+            BorderThickness: =0
+            Fill: =Transparent
+            Height: =80
+            HoverBorderColor: =Self.BorderColor
+            OnSelect: =Back()
+            PaddingLeft: =10
+            PressedBorderColor: =Self.BorderColor
+            PressedFill: =Self.HoverFill
+            Size: =24
+            Text: ="Zurück"
+            Y: =10
+            ZIndex: =3
+
+        Image7_1 As image:
+            Height: =80
+            Image: =Session.Image
+            RadiusBottomLeft: =80
+            RadiusBottomRight: =80
+            RadiusTopLeft: =80
+            RadiusTopRight: =80
+            Width: =80
+            X: =552
+            Y: =10
+            ZIndex: =18
+

@@ -1,0 +1,122 @@
+ScreenVersionen As screen:
+    Height: =Max(App.Height, App.DesignHeight)
+    OnVisible: =ClearCollect( myVersionen, Versionen)
+    Width: =Max(App.Width, App.DesignWidth)
+
+    "Gallery2 As gallery.'BrowseLayout_Vertical_TwoTextVariant_ver4.0'":
+        Height: =991
+        Items: =SortByColumns( myVersionen, "creb3_index", Descending)
+        Layout: =Layout.Vertical
+        TemplatePadding: =0
+        TemplateSize: =134
+        Y: =100
+        ZIndex: =1
+
+        Title5 As label:
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =14
+            Text: =ThisItem.version
+            VerticalAlign: =VerticalAlign.Top
+            Width: =190
+            X: =30
+            Y: =16
+            ZIndex: =1
+
+        Subtitle5 As label:
+            Height: =72
+            OnSelect: =Select(Parent)
+            Overflow: =Overflow.Scroll
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =12
+            Text: =ThisItem.Aenderung
+            VerticalAlign: =VerticalAlign.Top
+            Width: =580
+            X: =30
+            Y: =56
+            ZIndex: =2
+
+        Separator6 As rectangle:
+            Height: =1
+            OnSelect: =Select(Parent)
+            Width: =Parent.TemplateWidth
+            Y: =Parent.TemplateHeight - 1
+            ZIndex: =4
+
+        Label7 As label:
+            Align: =Align.Right
+            OnSelect: =Select(Parent)
+            Size: =14
+            Text: =DateValue(Text(ThisItem.Datum),"de-DE")
+            Width: =400
+            X: =210
+            Y: =16
+            ZIndex: =5
+
+    Icon7 As icon.Add:
+        Color: =RGBA(255, 255, 255, 1)
+        Icon: =Icon.Add
+        OnSelect: =NewForm(Form5); Navigate(ScreenVersionenNeu, ScreenTransition.None)
+        Visible: =varAdminGroup
+        X: =548
+        Y: =17
+        ZIndex: =5
+
+    labVersion_12 As label:
+        Align: =Align.Center
+        Color: =RGBA(0, 13, 75, 1)
+        Fill: =RGBA(230, 230, 230, 0.53)
+        Height: =45
+        OnSelect: =Navigate(ScreenVersionen, ScreenTransition.None)
+        Size: =16
+        Text: ="Version " & LookUp( myVersionen, creb3_index = Max( myVersionen, creb3_index)).version
+        Width: =640
+        Y: =1091
+        ZIndex: =6
+
+    GroupHeader_4 As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =6
+
+        RectQuickActionBar2_1 As rectangle:
+            Width: =Parent.Width
+            ZIndex: =1
+
+        LblAppName2_1 As label:
+            Align: =Align.Center
+            FontWeight: =FontWeight.Bold
+            Height: =62
+            Size: =27
+            Text: ="Versionen"
+            Width: =250
+            Wrap: =false
+            X: =195
+            Y: =19
+            ZIndex: =2
+
+        ButtonBack_1 As button:
+            Align: =Align.Left
+            BorderColor: =Transparent
+            BorderThickness: =0
+            Fill: =Transparent
+            Height: =80
+            HoverBorderColor: =Self.BorderColor
+            OnSelect: =Back()
+            PaddingLeft: =10
+            PressedBorderColor: =Self.BorderColor
+            PressedFill: =Self.HoverFill
+            Size: =24
+            Text: ="Zurück"
+            X: =6
+            Y: =10
+            ZIndex: =4
+

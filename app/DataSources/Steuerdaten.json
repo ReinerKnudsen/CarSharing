@@ -1,0 +1,101 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "creb3_steuerdatums",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "creb3_steuerdatum",
+    "MaxGetRowsCount": 500,
+    "Name": "Steuerdaten",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Besitzer",
+      "createdby": "Erstellt von",
+      "createdon": "Erstellt am",
+      "createdonbehalfby": "Erstellt von (Stellvertreter)",
+      "creb3_betrag": "Betrag",
+      "creb3_lastversion": "lastVersion",
+      "creb3_name": "Name",
+      "creb3_steuerdatum_AsyncOperations": "Systemaufträge",
+      "creb3_steuerdatum_BulkDeleteFailures": "Massenlöschungsfehler",
+      "creb3_steuerdatum_DuplicateBaseRecord": "Doppelte Datensätze (creb3_steuerdatum_DuplicateBaseRecord)",
+      "creb3_steuerdatum_DuplicateMatchingRecord": "Doppelte Datensätze (creb3_steuerdatum_DuplicateMatchingRecord)",
+      "creb3_steuerdatum_MailboxTrackingFolders": "Automatisch nachverfolgte Postfachordner",
+      "creb3_steuerdatum_PrincipalObjectAttributeAccesses": "Sicherer Feldzugriff",
+      "creb3_steuerdatum_ProcessSession": "Prozesssitzungen",
+      "creb3_steuerdatum_SyncErrors": "Synchronisierungsfehler",
+      "creb3_steuerdatumid": "Steuerdatum",
+      "creb3_wert": "Wert",
+      "importsequencenumber": "Importsequenznummer",
+      "modifiedby": "Geändert von",
+      "modifiedon": "Geändert am",
+      "modifiedonbehalfby": "Geändert von (Stellvertreter)",
+      "overriddencreatedon": "Datensatz erstellt am",
+      "owningbusinessunit": "Besitzer (Unternehmenseinheit)",
+      "owningteam": "Besitzer (Team)",
+      "owninguser": "Besitzer (Benutzer)",
+      "statecode": "Status",
+      "statuscode": "Statusgrund",
+      "timezoneruleversionnumber": "Versionsnummer der Zeitzonenregel",
+      "utcconversiontimezonecode": "Zeitzonencode für die UTC-Konvertierung",
+      "versionnumber": "Versionsnummer"
+    },
+    "PreferredName": "Steuerdaten",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Steuerdaten (Views)",
+    "Name": "_creb3_steuerdatum_views",
+    "RelatedEntityName": "Steuerdaten",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "167d8529-7083-4cfe-9dba-b9700ed45c21": "Steuerdatum Suchansicht",
+      "2c0358e8-8c6e-4752-993b-555326d80266": "Steuerdatum Zugeordnete Ansicht",
+      "3d142276-a3f7-45c0-8a76-ce4d48db1048": "Aktive Steuerdaten",
+      "4e050642-38d5-4b7e-b3ae-a2ea8b0040fd": "Steuerdatum Ansicht für die erweiterte Suche",
+      "50b08982-987d-4456-9986-9679e181bf75": "Inaktive Steuerdaten",
+      "bbb8053d-e2c2-ea11-a812-000d3a2c88f0": "Custom View"
+    }
+  },
+  {
+    "DisplayName": "Status (Steuerdaten)",
+    "Name": "creb3_steuerdatum_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Aktiv",
+      "1": "Inaktiv"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Steuerdaten"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Steuerdaten",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Statusgrund (Steuerdaten)",
+    "Name": "creb3_steuerdatum_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Aktiv",
+      "2": "Inaktiv"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Steuerdaten"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Steuerdaten",
+    "Type": "OptionSetInfo"
+  }
+]

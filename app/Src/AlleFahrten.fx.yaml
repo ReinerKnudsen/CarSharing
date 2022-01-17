@@ -1,0 +1,166 @@
+"AlleFahrten As screen.'phoneLayout_HeaderAndGallery_ver3.0'":
+    Height: =Max(App.Height, App.DesignHeight)
+    OnVisible: =ClearCollect(myFahrten, Filter(Fahrten, Auto = myFahrzeug))
+    Width: =Max(App.Width, App.DesignWidth)
+
+    "BrowseGallery2 As gallery.'BrowseLayout_Vertical_ThreeTextVariant_ver4.0'":
+        Height: =962
+        Items: =SortByColumns((Filter(myFahrten, Gruppe = Session.Group || Gruppe = "Unbekannt")), "creb3_ende", Descending)
+        Layout: =Layout.Vertical
+        OnSelect: =ViewForm(Form6); Navigate(FahrtenDetails, ScreenTransition.None)
+        ShowNavigation: =true
+        TemplatePadding: =0
+        TemplateSize: =Min(168, Self.Height - 60)
+        Transition: =Transition.Push
+        Width: =Parent.Width
+        Y: =129
+        ZIndex: =1
+
+        Title3 As label:
+            Color: =If( ThisItem.Gruppe = "Unbekannt", Red, Black)
+            Height: =Self.Size * 1.8
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Text: |-
+                =ThisItem.Start & " - " & ThisItem.Ende & " (" & ThisItem.Strecke & "km / " & Text(
+                    ThisItem.Kosten,
+                    "[$-en-GB]#0.00"
+                ) & " €)"
+            VerticalAlign: =VerticalAlign.Top
+            Width: =Parent.TemplateWidth - 104
+            X: =32
+            Y: =16
+            ZIndex: =1
+
+        Subtitle3 As label:
+            Color: =If( ThisItem.Gruppe = "Unbekannt", Red, Black)
+            Height: =Self.Size * 1.8
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Text: =LookUp(WochenTage, Tag = Weekday(ThisItem.Fahrdatum)).Name & ", " & Text(ThisItem.Fahrdatum, DateTimeFormat.ShortDate)
+            VerticalAlign: =VerticalAlign.Top
+            Width: =Parent.TemplateWidth - 104
+            X: =32
+            Y: =Title3.Y + Title3.Height + 2
+            ZIndex: =2
+
+        Body2 As label:
+            Height: =Self.Size * 4
+            OnSelect: =Select(Parent)
+            Text: =ThisItem.Kommentar
+            Width: =480
+            X: =32
+            Y: =Subtitle3.Y + Subtitle3.Height + 4
+            ZIndex: =3
+
+        Separator3 As rectangle:
+            Height: =1
+            OnSelect: =Select(Parent)
+            Width: =Parent.TemplateWidth
+            Y: =Parent.TemplateHeight - 1
+            ZIndex: =5
+
+        Icon2 As icon.NextArrow:
+            Icon: =Icon.NextArrow
+            OnSelect: |-
+                =Set( aktFahrt, ThisItem); ViewForm( Form6); 
+                Navigate( FahrtenDetails, 
+                ScreenTransition.None, 
+                If( ThisItem.Ende = Session.LastKM, {maxFahrt: true}, {maxFahrt: false}))
+            X: =550
+            Y: =59
+            ZIndex: =6
+
+        Rectangle1 As rectangle:
+            Height: =1
+            OnSelect: =Select(Parent)
+            Width: =480
+            X: =32
+            Y: =90
+            ZIndex: =7
+
+    labVersion_2 As label:
+        Align: =Align.Center
+        Color: =RGBA(0, 13, 75, 1)
+        Fill: =RGBA(230, 230, 230, 0.53)
+        Height: =45
+        OnSelect: =Navigate(ScreenVersionen, ScreenTransition.None)
+        Size: =16
+        Text: ="Version " & LookUp( myVersionen, creb3_index = Max( myVersionen, creb3_index)).version
+        Width: =640
+        Y: =1091
+        ZIndex: =10
+
+    GroupHeader As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =10
+
+        RectQuickActionBar2 As rectangle:
+            Width: =Parent.Width
+            ZIndex: =2
+
+        LblAppName2 As label:
+            Align: =Align.Center
+            FontWeight: =FontWeight.Bold
+            Height: =66
+            Size: =27
+            Text: ="Alle Fahrten"
+            Width: =AlleFahrten.Width - ButtonBack.Width - ButtonNew.Width
+            Wrap: =false
+            X: =160
+            ZIndex: =3
+
+        ButtonNew As button:
+            Align: =Align.Right
+            BorderColor: =Transparent
+            BorderThickness: =0
+            Fill: =Transparent
+            Height: =80
+            HoverBorderColor: =Self.BorderColor
+            OnSelect: =NewForm(Form1);Navigate(NeueFahrt, ScreenTransition.None)
+            PaddingRight: =10
+            PressedBorderColor: =Self.BorderColor
+            PressedFill: =Self.HoverFill
+            Size: =24
+            Text: ="Neu"
+            X: =474
+            Y: =10
+            ZIndex: =7
+
+        ButtonBack As button:
+            Align: =Align.Left
+            BorderColor: =Transparent
+            BorderThickness: =0
+            Fill: =Transparent
+            Height: =80
+            HoverBorderColor: =Self.BorderColor
+            OnSelect: =Navigate(Start, ScreenTransition.None)
+            PaddingLeft: =10
+            PressedBorderColor: =Self.BorderColor
+            PressedFill: =Self.HoverFill
+            Size: =24
+            Text: ="Zurück"
+            X: =6
+            Y: =10
+            ZIndex: =8
+
+        Label15_1 As label:
+            Align: =Align.Center
+            Color: =RGBA(255, 255, 255, 1)
+            Height: =58
+            Size: =21
+            Text: =Session.Group
+            Width: =348
+            X: =146
+            Y: =42
+            ZIndex: =9
+
